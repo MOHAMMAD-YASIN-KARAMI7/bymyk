@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cinzel", ui-serif, Georgia, serif;
+  --font-script: "Great Vibes", cursive;
+  --color-background: #070b14;
+  --color-foreground: #f4efe4;
+  --color-primary: #c9a35a;
+  --color-primary-foreground: #1a1408;
+  --color-muted-foreground: #b7b1a4;
+  --color-border: color-mix(in oklab, #c9a35a 28%, transparent);
+  --color-card: #0c1220;
+  --color-gold-soft: #e6d3a3;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .text-gold-gradient {
+    background: linear-gradient(180deg, #f4efe4, #c9a35a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-wash {
+    background:
+      radial-gradient(ellipse at 70% 20%, color-mix(in oklab, var(--color-primary) 18%, transparent), transparent 55%),
+      radial-gradient(ellipse at 20% 80%, color-mix(in oklab, #1d4ed8 16%, transparent), transparent 50%);
+  }
+
+  .rise {
+    animation: rise 700ms ease both;
+  }
+  .stagger-2 { animation-delay: 80ms; }
+  .stagger-3 { animation-delay: 160ms; }
+  .stagger-4 { animation-delay: 240ms; }
+  .stagger-5 { animation-delay: 320ms; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .float-soft {
+    animation: float-soft 6s ease-in-out infinite;
+  }
+  @keyframes float-soft {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .pressable {
+    transition: transform 150ms ease-out, background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+  }
+  .pressable:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+
+  .site-nav {
+    display: none;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .site-burger {
+    display: grid;
+  }
+  @media (min-width: 64rem) {
+    .site-nav { display: flex !important; }
+    .site-burger { display: none !important; }
+  }
+
+  .poster-art {
+    container-type: inline-size;
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #070b14;
+    border: 1px solid color-mix(in oklab, var(--color-primary) 35%, transparent);
+    box-shadow: 0 28px 80px -28px rgb(201 163 90 / 0.4);
+  }
+  .poster-glow {
+    position: absolute;
+    inset: 18% 22%;
+    background: radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--color-primary) 26%, transparent), transparent 68%);
+    pointer-events: none;
+  }
+  .poster-corners {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .poster-corners path {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 0.45;
+  }
+  .poster-figure {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 40%;
+    height: 40%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 0.35cqi color-mix(in oklab, var(--color-foreground) 88%, transparent),
+      0 0 0 0.7cqi color-mix(in oklab, var(--color-primary) 55%, transparent),
+      0 18px 40px rgb(0 0 0 / 0.35);
+    pointer-events: none;
+  }
+  .poster-pillars {
+    position: absolute;
+    left: 4.5%;
+    top: 20%;
+    z-index: 2;
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    gap: 5.2cqi;
+  }
+  .poster-pillars li {
+    display: flex;
+    align-items: center;
+    gap: 1.6cqi;
+    color: var(--color-primary);
+  }
+  .poster-icon {
+    display: grid;
+    width: 6.2cqi;
+    height: 6.2cqi;
+    flex: none;
+    place-items: center;
+    border: 1px solid color-mix(in oklab, var(--color-primary) 70%, transparent);
+    border-radius: 999px;
+  }
+  .poster-icon svg {
+    width: 3.2cqi;
+    height: 3.2cqi;
+  }
+  .poster-pillars strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.5cqi;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    line-height: 1.15;
+  }
+  .poster-pillars em {
+    display: block;
+    margin-top: 0.3cqi;
+    font-family: var(--font-display);
+    font-size: 1.55cqi;
+    font-style: normal;
+    letter-spacing: 0.16em;
+    color: var(--color-gold-soft);
+    opacity: 0.9;
+  }
+  .poster-quote {
+    position: absolute;
+    right: 4.5%;
+    top: 22%;
+    z-index: 2;
+    width: 30%;
+    color: var(--color-primary);
+    text-align: left;
+  }
+  .poster-mark {
+    display: block;
+    margin-bottom: -1.2cqi;
+    font-family: var(--font-display);
+    font-size: 8cqi;
+    line-height: 1;
+    opacity: 0.55;
+  }
+  .poster-quote p {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2.35cqi;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+  }
+  .poster-quote span {
+    font-size: 1.7cqi;
+    letter-spacing: 0.16em;
+    opacity: 0.85;
+  }
+  .poster-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.7cqi;
+    margin: 1.4cqi 0;
+  }
+  .poster-rule i {
+    flex: 1;
+    height: 1px;
+    background: color-mix(in oklab, var(--color-primary) 70%, transparent);
+  }
+  .poster-rule b {
+    font-family: var(--font-display);
+    font-size: 1.4cqi;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+  }
+  .poster-yourself {
+    font-size: 2.8cqi !important;
+    letter-spacing: 0.18em !important;
+  }
+  .poster-quote cite {
+    display: block;
+    margin-top: 1.8cqi;
+    font-family: var(--font-script);
+    font-size: 4.4cqi;
+    font-style: normal;
+    color: var(--color-foreground);
+  }
+}
